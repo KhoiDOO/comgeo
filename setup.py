@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="computational-geometry",
-    version="0.0.1",
+    version="0.0.2",
     description="Computational Geometry",
     author="KhoiDOO",
     author_email="khoido8899@gmail.com",

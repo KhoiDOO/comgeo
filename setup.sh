@@ -17,6 +17,9 @@ fi
 # update pip to latest version for pyproject.toml setup.
 pip install -U pip wheel
 
+# install Pytorch
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu129
+
 # install dev dependencies
 pip install \
     "pytest" \
