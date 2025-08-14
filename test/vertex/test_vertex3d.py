@@ -77,8 +77,8 @@ class TestVertex3D(unittest.TestCase):
         self.assertNotEqual(self.vertex1, self.vertex2)
 
     def test_vertex3d_equality_with_non_vertex3d(self):
-        """Test equality comparison with non-Vertex3D objects raises NotImplementedError."""
-        with self.assertRaises(NotImplementedError) as context:
+        """Test equality comparison with non-Vertex3D objects raises TypeError."""
+        with self.assertRaises(TypeError) as context:
             self.vertex1 == "not a vertex3d"
         self.assertIn("__eq__ is only supported for Vertex3D instances", str(context.exception))
 
@@ -95,8 +95,8 @@ class TestVertex3D(unittest.TestCase):
         self.assertTrue(vertex_same_xy < self.vertex1)  # (1.0, 2.0, 2.0) < (1.0, 2.0, 3.0)
 
     def test_vertex3d_less_than_with_non_vertex3d(self):
-        """Test less than comparison with non-Vertex3D objects raises NotImplementedError."""
-        with self.assertRaises(NotImplementedError) as context:
+        """Test less than comparison with non-Vertex3D objects raises TypeError."""
+        with self.assertRaises(TypeError) as context:
             self.vertex1 < "not a vertex3d"
         self.assertIn("__lt__ is only supported for Vertex3D instances", str(context.exception))
 
@@ -109,8 +109,8 @@ class TestVertex3D(unittest.TestCase):
         self.assertEqual(result.z, 9.0)  # 3.0 + 6.0
 
     def test_vertex3d_addition_with_non_vertex3d(self):
-        """Test addition with non-Vertex3D objects raises NotImplementedError."""
-        with self.assertRaises(NotImplementedError) as context:
+        """Test addition with non-Vertex3D objects raises TypeError."""
+        with self.assertRaises(TypeError) as context:
             self.vertex1 + "not a vertex3d"
         self.assertIn("__add__ is only supported for Vertex3D instances", str(context.exception))
 
@@ -123,8 +123,8 @@ class TestVertex3D(unittest.TestCase):
         self.assertEqual(result.z, 3.0)  # 6.0 - 3.0
 
     def test_vertex3d_subtraction_with_non_vertex3d(self):
-        """Test subtraction with non-Vertex3D objects raises NotImplementedError."""
-        with self.assertRaises(NotImplementedError) as context:
+        """Test subtraction with non-Vertex3D objects raises TypeError."""
+        with self.assertRaises(TypeError) as context:
             self.vertex1 - "not a vertex3d"
         self.assertIn("__sub__ is only supported for Vertex3D instances", str(context.exception))
 
@@ -138,7 +138,10 @@ class TestVertex3D(unittest.TestCase):
         self.assertEqual(self.vertex1.distance_to(self.vertex1), 0.0)
 
     def test_vertex3d_distance_to_with_non_vertex3d(self):
-        """Test distance calculation with non-Vertex3D objects raises NotImplementedError."""
-        with self.assertRaises(NotImplementedError) as context:
+        """Test distance calculation with non-Vertex3D objects raises TypeError."""
+        with self.assertRaises(TypeError) as context:
             self.vertex1.distance_to("not a vertex3d")
         self.assertIn("distance_to is only supported for Vertex3D instances", str(context.exception))
+
+if __name__ == '__main__':
+    unittest.main()

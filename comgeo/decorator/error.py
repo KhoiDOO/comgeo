@@ -1,3 +1,5 @@
+import functools
+
 def not_implemented(func):
     """Decorator to raise NotImplementedError for methods that are not implemented."""
     def wrapper(self, *args, **kwargs):
@@ -6,8 +8,20 @@ def not_implemented(func):
 
 def not_self_instance(func):
     """Decorator to check if the argument is an instance of a specific class."""
-    def wrapper(self, other, *args, **kwargs):
-        if not isinstance(other, self.__class__):
-            raise NotImplementedError(f"{func.__name__} is only supported for {self.__class__.__name__} instances.")
-        return func(self, other, *args, **kwargs)
+    def wrapper(self, *args, **kwargs):
+        # Only check if there are positional arguments
+        if args and not isinstance(args[0], self.__class__):
+            raise TypeError(f"{func.__name__} is only supported for {self.__class__.__name__} instances.")
+        return func(self, *args, **kwargs)
     return wrapper
+
+def not_instance(cls):
+    """Decorator to check if the argument is an instance of a specific class."""
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(self, *args, **kwargs):
+            if args and not isinstance(args[0], cls):
+                raise TypeError(f"{func.__name__} is only supported for {cls.__name__} instances.")
+            return func(self, *args, **kwargs)
+        return wrapper
+    return decorator

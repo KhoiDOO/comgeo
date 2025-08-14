@@ -60,8 +60,8 @@ class TestVertex(unittest.TestCase):
         self.assertNotEqual(self.vertex1, self.vertex2)
 
     def test_vertex_equality_with_non_vertex(self):
-        """Test equality comparison with non-Vertex objects raises NotImplementedError."""
-        with self.assertRaises(NotImplementedError) as context:
+        """Test equality comparison with non-Vertex objects raises TypeError."""
+        with self.assertRaises(TypeError) as context:
             self.vertex1 == "not a vertex"
         self.assertIn("__eq__ is only supported for Vertex instances", str(context.exception))
 
