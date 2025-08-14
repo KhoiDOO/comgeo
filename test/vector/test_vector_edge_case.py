@@ -1,7 +1,4 @@
-import pytest
-import math
-from comgeo.core.vector import Vector, Vector2D, Vector3D
-from comgeo.core.vertex import Vertex2D, Vertex3D
+from comgeo.core.vector import Vector2D, Vector3D
 
 class TestVectorEdgeCases:
     """Test edge cases and error conditions."""

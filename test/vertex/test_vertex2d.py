@@ -44,20 +44,15 @@ class TestVertex2D(unittest.TestCase):
         self.assertEqual(self.vertex1.y, 20.0)
         self.assertEqual(self.vertex1.coordinates, (10.0, 20.0))
 
-    def test_vertex2d_x_property(self):
-        """Test the x property getter and setter."""
+    def test_vertex2d_xy_property(self):
+        """Test the x and y property getters and setters."""
         self.assertEqual(self.vertex1.x, 1.0)
-        
-        # Test setter
-        self.vertex1.x = 15.0
-        self.assertEqual(self.vertex1.x, 15.0)
-
-    def test_vertex2d_y_property(self):
-        """Test the y property getter and setter."""
         self.assertEqual(self.vertex1.y, 2.0)
         
         # Test setter
+        self.vertex1.x = 15.0
         self.vertex1.y = 25.0
+        self.assertEqual(self.vertex1.x, 15.0)
         self.assertEqual(self.vertex1.y, 25.0)
 
     def test_vertex2d_repr(self):
