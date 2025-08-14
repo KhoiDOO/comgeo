@@ -1,18 +1,6 @@
 import math
 
-def not_implemented(func):
-    """Decorator to raise NotImplementedError for methods that are not implemented."""
-    def wrapper(self, *args, **kwargs):
-        raise NotImplementedError(f"{func.__name__} is not implemented for {self.__class__.__name__}.")
-    return wrapper
-
-def not_self_instance(func):
-    """Decorator to check if the argument is an instance of a specific class."""
-    def wrapper(self, other, *args, **kwargs):
-        if not isinstance(other, self.__class__):
-            raise NotImplementedError(f"{func.__name__} is only supported for {self.__class__.__name__} instances.")
-        return func(self, other, *args, **kwargs)
-    return wrapper
+from ..decorator.error import not_implemented, not_self_instance
 
 class Vertex:
     def __init__(self, id: int = -1, visited: bool = False):
@@ -38,19 +26,25 @@ class Vertex:
     def __repr__(self):
         return f"Vertex(id={self._id}, visited={self._visited})"
 
+    @not_self_instance
     def __eq__(self, other):
-        if not isinstance(other, Vertex):
-            raise NotImplementedError("Comparison is only supported between Vertex instances.")
+        """Check equality of Vertex instances based on their IDs."""
         return self._id == other._id
 
     @not_implemented
-    def __lt__(self, other: 'Vertex'): pass
+    def __lt__(self, other: 'Vertex'): 
+        """Compare Vertex instances based on their IDs."""
+        pass
 
     @not_implemented
-    def __add__(self, other: 'Vertex'): pass
+    def __add__(self, other: 'Vertex'): 
+        """Add two Vertex instances."""
+        pass
 
     @not_implemented
-    def __sub__(self, other: 'Vertex'): pass
+    def __sub__(self, other: 'Vertex'): 
+        """Subtract two Vertex instances."""
+        pass
 
 class Vertex2D(Vertex):
     def __init__(self, x: float, y: float, id: int = -1, visited: bool = False):
@@ -87,22 +81,27 @@ class Vertex2D(Vertex):
 
     @not_self_instance
     def __eq__(self, other: 'Vertex2D') -> bool:
+        """Check equality of Vertex2D instances based on their coordinates."""
         return self._x == other._x and self._y == other._y
 
     @not_self_instance
     def __lt__(self, other: 'Vertex2D') -> bool:
+        """Compare Vertex2D instances based on their coordinates."""
         return (self._x, self._y) < (other._x, other._y)
 
     @not_self_instance
     def __add__(self, other: 'Vertex2D') -> 'Vertex2D':
+        """Add two Vertex2D instances."""
         return Vertex2D(self._x + other._x, self._y + other._y)
 
     @not_self_instance
     def __sub__(self, other: 'Vertex2D') -> 'Vertex2D':
+        """Subtract two Vertex2D instances."""
         return Vertex2D(self._x - other._x, self._y - other._y)
 
     @not_self_instance
     def distance_to(self, other: 'Vertex2D') -> float:
+        """Calculate the Euclidean distance between two Vertex2D instances."""
         return ((self._x - other._x) ** 2 + (self._y - other._y) ** 2) ** 0.5
 
 class Vertex3D(Vertex):
@@ -150,6 +149,7 @@ class Vertex3D(Vertex):
 
     @not_self_instance
     def __eq__(self, other: 'Vertex3D') -> bool:
+        """Check equality of Vertex3D instances based on their coordinates."""
         return (self._x == other._x and self._y == other._y and self._z == other._z)
 
     @not_self_instance
@@ -159,12 +159,15 @@ class Vertex3D(Vertex):
 
     @not_self_instance
     def __add__(self, other: 'Vertex3D') -> 'Vertex3D':
+        """Add two Vertex3D instances."""
         return Vertex3D(self._x + other._x, self._y + other._y, self._z + other._z)
 
     @not_self_instance
     def __sub__(self, other: 'Vertex3D') -> 'Vertex3D':
+        """Subtract two Vertex3D instances."""
         return Vertex3D(self._x - other._x, self._y - other._y, self._z - other._z)
 
     @not_self_instance
     def distance_to(self, other: 'Vertex3D') -> float:
+        """Calculate the Euclidean distance between two Vertex3D instances."""
         return ((self._x - other._x) ** 2 + (self._y - other._y) ** 2 + (self._z - other._z) ** 2) ** 0.5

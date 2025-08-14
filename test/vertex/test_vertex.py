@@ -63,7 +63,7 @@ class TestVertex(unittest.TestCase):
         """Test equality comparison with non-Vertex objects raises NotImplementedError."""
         with self.assertRaises(NotImplementedError) as context:
             self.vertex1 == "not a vertex"
-        self.assertIn("Comparison is only supported between Vertex instances", str(context.exception))
+        self.assertIn("__eq__ is only supported for Vertex instances", str(context.exception))
 
     def test_vertex_less_than_not_implemented(self):
         """Test that less than comparison raises NotImplementedError."""

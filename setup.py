@@ -1,8 +1,26 @@
 from setuptools import setup, find_packages
 
+import os
+
+def get_version():
+    pyproject_file = "pyproject.toml"
+    with open(pyproject_file, "r") as f:
+        txt = f.read()
+    for line in txt.splitlines():
+        if line.startswith("version"):
+            return line.split("=")[1].strip().strip('"')
+
+def get_name():
+    pyproject_file = "pyproject.toml"
+    with open(pyproject_file, "r") as f:
+        txt = f.read()
+    for line in txt.splitlines():
+        if line.startswith("name"):
+            return line.split("=")[1].strip().strip('"')
+
 setup(
-    name="computational-geometry",
-    version="0.0.2",
+    name=get_name(),
+    version=get_version(),
     description="Computational Geometry",
     author="KhoiDOO",
     author_email="khoido8899@gmail.com",
