@@ -1,4 +1,4 @@
-from ...decorator.error import not_implemented, not_self_instance
+from ...decorator.error import not_self_implemented, not_self_instance
 
 class Vector:
     def __init__(self, id: int = -1, visited: bool = False):
@@ -29,17 +29,17 @@ class Vector:
         """Check equality based on the id of the vector."""
         return self._id == other._id
 
-    @not_implemented
+    @not_self_implemented
     def __lt__(self, other: 'Vector'):
         """Less than comparison based on the id of the vector."""
         pass
 
-    @not_implemented
+    @not_self_implemented
     def __add__(self, other: 'Vector'):
         """Addition operation for vectors."""
         pass
     
-    @not_implemented
+    @not_self_implemented
     def __sub__(self, other: 'Vector'):
         """Subtraction operation for vectors."""
         pass

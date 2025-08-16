@@ -1,6 +1,6 @@
 import functools
 
-def not_implemented(func):
+def not_self_implemented(func):
     """Decorator to raise NotImplementedError for methods that are not implemented."""
     def wrapper(self, *args, **kwargs):
         raise NotImplementedError(f"{func.__name__} is not implemented for {self.__class__.__name__}.")
