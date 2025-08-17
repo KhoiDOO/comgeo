@@ -11,6 +11,9 @@ class Vertex3D(Vertex):
         self._x = x
         self._y = y
         self._z = z
+        self._nx = None
+        self._ny = None
+        self._nz = None
 
     @property
     def coordinates(self):
@@ -51,8 +54,51 @@ class Vertex3D(Vertex):
     def z(self, value: float):
         self._z = value
 
+    @property
+    def normal(self):
+        return self._nx, self._ny, self._nz
+    
+    @property
+    def nx(self):
+        return self._nx
+
+    @property
+    def ny(self):
+        return self._ny
+
+    @property
+    def nz(self):
+        return self._nz
+
+    @nx.setter
+    @not_instance(float)
+    def nx(self, value: float):
+        self._nx = value
+
+    @ny.setter
+    @not_instance(float)
+    def ny(self, value: float):
+        self._ny = value
+
+    @nz.setter
+    @not_instance(float)
+    def nz(self, value: float):
+        self._nz = value
+
+    @normal.setter
+    def normal(self, value):
+        if not isinstance(value, (tuple, list)) or len(value) != 3:
+            raise ValueError("Normal must be a tuple or list of three floats.")
+        nx, ny, nz = value
+        check_type(nx, float, "nx")
+        check_type(ny, float, "ny")
+        check_type(nz, float, "nz")
+        self._nx = nx
+        self._ny = ny
+        self._nz = nz
+
     def __repr__(self):
-        return f"Vertex3D(x={self._x}, y={self._y}, z={self._z}, id={self._id}, visited={self._visited})"
+        return f"Vertex3D(x={self._x}, y={self._y}, z={self._z}, nx={self._nx}, ny={self._ny}, nz={self._nz}, id={self._id}, visited={self._visited})"
 
     @not_self_instance
     def __eq__(self, other: 'Vertex3D') -> bool:

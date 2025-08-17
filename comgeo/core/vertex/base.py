@@ -2,11 +2,13 @@ from ...decorator.error import not_instance, not_self_implemented, not_self_inst
 from ..utils.error import check_type
 
 class Vertex:
-    def __init__(self, id: int = -1, visited: bool = False):
+    def __init__(self, id: int = -1, visited: bool = False, weight: float = 1.0):
         check_type(id, int, "id")
         check_type(visited, bool, "visited")
+        check_type(weight, float, "weight")
         self._id = id
         self._visited = visited
+        self._weight = weight
 
     @property
     def id(self):
@@ -26,8 +28,17 @@ class Vertex:
     def visited(self, value: bool):
         self._visited = value
 
+    @property
+    def weight(self):
+        return self._weight
+
+    @weight.setter
+    @not_instance(float)
+    def weight(self, value: float):
+        self._weight = value
+
     def __repr__(self):
-        return f"Vertex(id={self._id}, visited={self._visited})"
+        return f"Vertex(id={self._id}, visited={self._visited}, weight={self._weight})"
 
     @not_self_instance
     def __eq__(self, other):

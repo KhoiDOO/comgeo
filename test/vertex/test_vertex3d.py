@@ -62,11 +62,58 @@ class TestVertex3D(unittest.TestCase):
         self.assertEqual(self.vertex1.x, 15.0)
         self.assertEqual(self.vertex1.y, 25.0)
         self.assertEqual(self.vertex1.z, 35.0)
+    
+    def test_vertex3d_normal_property(self):
+        """Test the normal property getters and setters."""
+        # Test getters
+        self.assertEqual(self.vertex1.normal, (None, None, None))
+        
+        # Test setters
+        self.vertex1.normal = (1.0, 2.0, 3.0)
+        self.assertEqual(self.vertex1.normal, (1.0, 2.0, 3.0))
+    
+    def test_vertex3d_nx_property(self):
+        """Test the nx property getters and setters."""
+        # Test getters
+        self.assertEqual(self.vertex1.nx, None)
+        
+        # Test setters
+        self.vertex1.nx = 1.0
+        self.assertEqual(self.vertex1.nx, 1.0)
+    
+    def test_vertex3d_ny_property(self):
+        """Test the ny property getters and setters."""
+        # Test getters
+        self.assertEqual(self.vertex1.ny, None)
+        
+        # Test setters
+        self.vertex1.ny = 2.0
+        self.assertEqual(self.vertex1.ny, 2.0)
+    
+    def test_vertex3d_nz_property(self):
+        """Test the nz property getters and setters."""
+        # Test getters
+        self.assertEqual(self.vertex1.nz, None)
+        
+        # Test setters
+        self.vertex1.nz = 3.0
+        self.assertEqual(self.vertex1.nz, 3.0)
 
     def test_vertex3d_repr(self):
         """Test the string representation of Vertex3D."""
-        expected = "Vertex3D(x=1.0, y=2.0, z=3.0, id=1, visited=False)"
+        expected = "Vertex3D(x=1.0, y=2.0, z=3.0, nx=None, ny=None, nz=None, id=1, visited=False)"
         self.assertEqual(repr(self.vertex1), expected)
+    
+    def test_vertex3d_set_normal(self):
+        """Test the set_normal method."""
+        self.vertex1.normal = (1.0, 2.0, 3.0)
+        self.assertEqual(self.vertex1.normal, (1.0, 2.0, 3.0))
+    
+    def test_vertex3d_set_normal_with_non_float(self):
+        """Test the set_normal method with non-float raises TypeError."""
+        with self.assertRaises(TypeError) as context:
+            self.vertex1.normal = ("not a float", 2.0, 3.0)
+        self.assertIn("Expected <class 'float'> for nx, got <class 'str'>", str(context.exception))
 
     def test_vertex3d_equality_same_coordinates(self):
         """Test equality comparison between vertices with same coordinates."""

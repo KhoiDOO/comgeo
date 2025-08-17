@@ -13,21 +13,23 @@ class TestVertex(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures before each test method."""
-        self.vertex1 = Vertex(id=1, visited=False)
-        self.vertex2 = Vertex(id=2, visited=True)
-        self.vertex3 = Vertex(id=1, visited=True)  # Same ID as vertex1, different visited state
+        self.vertex1 = Vertex(id=1, visited=False, weight=1.0)
+        self.vertex2 = Vertex(id=2, visited=True, weight=1.0)
+        self.vertex3 = Vertex(id=1, visited=True, weight=1.0)  # Same ID as vertex1, different visited state
 
     def test_vertex_initialization_default(self):
         """Test Vertex initialization with default parameters."""
         vertex = Vertex()
         self.assertEqual(vertex.id, -1)
         self.assertEqual(vertex.visited, False)
+        self.assertEqual(vertex.weight, 1.0)
 
     def test_vertex_initialization_with_parameters(self):
         """Test Vertex initialization with specific parameters."""
-        vertex = Vertex(id=5, visited=True)
+        vertex = Vertex(id=5, visited=True, weight=1.0)
         self.assertEqual(vertex.id, 5)
         self.assertEqual(vertex.visited, True)
+        self.assertEqual(vertex.weight, 1.0)
 
     def test_vertex_id_property(self):
         """Test the id property getter and setter."""
@@ -48,8 +50,16 @@ class TestVertex(unittest.TestCase):
 
     def test_vertex_repr(self):
         """Test the string representation of Vertex."""
-        expected = "Vertex(id=1, visited=False)"
+        expected = "Vertex(id=1, visited=False, weight=1.0)"
         self.assertEqual(repr(self.vertex1), expected)
+
+    def test_vertex_weight_property(self):
+        """Test the weight property getter and setter."""
+        self.assertEqual(self.vertex1.weight, 1.0)
+        
+        # Test setter
+        self.vertex1.weight = 2.0
+        self.assertEqual(self.vertex1.weight, 2.0)
 
     def test_vertex_equality_same_id(self):
         """Test equality comparison between vertices with same ID."""
