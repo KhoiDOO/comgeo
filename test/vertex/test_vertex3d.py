@@ -121,6 +121,40 @@ class TestVertex3D(unittest.TestCase):
         self.assertEqual(result.x, 3.0)  # 4.0 - 1.0
         self.assertEqual(result.y, 3.0)  # 5.0 - 2.0
         self.assertEqual(result.z, 3.0)  # 6.0 - 3.0
+    
+    def test_vertex3d_multiplication(self):
+        """Test multiplication of a Vertex3D instance by a scalar."""
+        result = self.vertex1 * 2.0
+        self.assertIsInstance(result, Vertex3D)
+        self.assertEqual(result.x, 2.0)  # 1.0 * 2
+        self.assertEqual(result.y, 4.0)  # 2.0 * 2
+        self.assertEqual(result.z, 6.0)  # 3.0 * 2
+    
+    def test_vertex3d_multiplication_with_non_float(self):
+        """Test multiplication with non-float raises TypeError."""
+        with self.assertRaises(TypeError) as context:
+            self.vertex1 * "not a float"
+        self.assertIn("__mul__ is only supported for float instances", str(context.exception))
+    
+    def test_vertex3d_division(self):
+        """Test division of a Vertex3D instance by a scalar."""
+        result = self.vertex1 / 2.0
+        self.assertIsInstance(result, Vertex3D)
+        self.assertEqual(result.x, 0.5)  # 1.0 / 2
+        self.assertEqual(result.y, 1.0)  # 2.0 / 2
+        self.assertEqual(result.z, 1.5)  # 3.0 / 2
+    
+    def test_vertex3d_division_by_zero(self):
+        """Test division by zero raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.vertex1 / 0.0
+        self.assertIn("Cannot divide by zero", str(context.exception))
+    
+    def test_vertex3d_division_by_non_float(self):
+        """Test division by non-float raises TypeError."""
+        with self.assertRaises(TypeError) as context:
+            self.vertex1 / "not a float"
+        self.assertIn("__truediv__ is only supported for float instances", str(context.exception))
 
     def test_vertex3d_subtraction_with_non_vertex3d(self):
         """Test subtraction with non-Vertex3D objects raises TypeError."""

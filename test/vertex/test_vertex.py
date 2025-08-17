@@ -82,6 +82,24 @@ class TestVertex(unittest.TestCase):
         with self.assertRaises(NotImplementedError) as context:
             self.vertex1 - self.vertex2
         self.assertIn("__sub__ is not implemented for Vertex", str(context.exception))
+    
+    def test_vertex_multiplication_not_implemented(self):
+        """Test that multiplication raises NotImplementedError."""
+        with self.assertRaises(NotImplementedError) as context:
+            self.vertex1 * 2
+        self.assertIn("__mul__ is not implemented for Vertex", str(context.exception))
+    
+    def test_vertex_division_not_implemented(self):
+        """Test that division raises NotImplementedError."""
+        with self.assertRaises(NotImplementedError) as context:
+            self.vertex1 / 2
+        self.assertIn("__truediv__ is not implemented for Vertex", str(context.exception))
+    
+    def test_vertex_distance_to_not_implemented(self):
+        """Test that distance_to raises NotImplementedError."""
+        with self.assertRaises(NotImplementedError) as context:
+            self.vertex1.distance_to(self.vertex2)
+        self.assertIn("distance_to is not implemented for Vertex", str(context.exception))
 
 if __name__ == '__main__':
     unittest.main()

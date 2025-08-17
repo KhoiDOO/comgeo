@@ -2,14 +2,45 @@ from .base import Vector
 from ..vertex import Vertex2D
 
 from ...decorator.error import not_self_instance, not_instance
+from ..utils.error import check_type
 
 import math
 
 class Vector2D(Vector):
     def __init__(self, x: float, y: float, id: int = -1, visited: bool = False):
         super().__init__(id, visited)
+        check_type(x, float, "x")
+        check_type(y, float, "y")
         self._x = x
         self._y = y
+    
+    @property
+    def coordinates(self):
+        return self._x, self._y
+    
+    def set_coordinates(self, x: float, y: float):
+        check_type(x, float, "x")
+        check_type(y, float, "y")
+        self._x = x
+        self._y = y
+    
+    @property
+    def x(self):
+        return self._x
+    
+    @x.setter
+    @not_instance(float)
+    def x(self, value: float):
+        self._x = value
+    
+    @property
+    def y(self):
+        return self._y
+    
+    @y.setter
+    @not_instance(float)
+    def y(self, value: float):
+        self._y = value
 
     @staticmethod
     def from_vertices(v1: Vertex2D, v2: Vertex2D, id: int, visited: bool = False) -> 'Vector2D':
@@ -53,3 +84,15 @@ class Vector2D(Vector):
         if p <= 0:
             raise ValueError("p must be a positive number")
         return (math.pow(math.fabs(self._x), p) + math.pow(math.fabs(self._y), p)) ** (1/p)
+    
+    @not_instance(float)
+    def __mul__(self, scalar: float): 
+        """Multiply a Vector2D instance by a scalar."""
+        return Vector2D(self._x * scalar, self._y * scalar)
+    
+    @not_instance(float)
+    def __truediv__(self, scalar: float): 
+        """Divide a Vector2D instance by a scalar."""
+        if scalar == 0.0:
+            raise ValueError("Cannot divide by zero")
+        return Vector2D(self._x / scalar, self._y / scalar)

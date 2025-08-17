@@ -1,0 +1,1 @@
+python -m pytest test/vertex/functional/triplets/test_check.py

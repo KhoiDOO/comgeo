@@ -2,16 +2,59 @@ from .base import Vector
 from ..vertex import Vertex3D
 
 from ...decorator.error import not_self_instance, not_instance
+from ..utils.error import check_type
 
 import math
 
 class Vector3D(Vector):
     def __init__(self, x: float, y: float, z: float, id: int = -1, visited: bool = False):
         super().__init__(id, visited)
+        check_type(x, float, "x")
+        check_type(y, float, "y")
+        check_type(z, float, "z")
 
         self._x = x
         self._y = y
         self._z = z
+    
+    @property
+    def coordinates(self):
+        return self._x, self._y, self._z
+    
+    def set_coordinates(self, x: float, y: float, z: float):
+        check_type(x, float, "x")
+        check_type(y, float, "y")
+        check_type(z, float, "z")
+        self._x = x
+        self._y = y
+        self._z = z
+    
+    @property
+    def x(self):
+        return self._x
+    
+    @x.setter
+    @not_instance(float)
+    def x(self, value: float):
+        self._x = value
+    
+    @property
+    def y(self):
+        return self._y
+    
+    @y.setter
+    @not_instance(float)
+    def y(self, value: float):
+        self._y = value
+    
+    @property
+    def z(self):
+        return self._z
+    
+    @z.setter
+    @not_instance(float)
+    def z(self, value: float):
+        self._z = value
 
     @staticmethod
     def from_vertices(v1: Vertex3D, v2: Vertex3D, id: int, visited: bool = False) -> 'Vector3D':
@@ -48,6 +91,18 @@ class Vector3D(Vector):
     def __sub__(self, other: 'Vector3D') -> 'Vector3D':
         """Subtract two vectors."""
         return Vector3D(self._x - other._x, self._y - other._y, self._z - other._z)
+    
+    @not_instance(float)
+    def __mul__(self, scalar: float): 
+        """Multiply a Vector3D instance by a scalar."""
+        return Vector3D(self._x * scalar, self._y * scalar, self._z * scalar)
+    
+    @not_instance(float)
+    def __truediv__(self, scalar: float): 
+        """Divide a Vector3D instance by a scalar."""
+        if scalar == 0.0:
+            raise ValueError("Cannot divide by zero")
+        return Vector3D(self._x / scalar, self._y / scalar, self._z / scalar)
 
     @not_instance(int)
     def norm(self, p: int = 2) -> float:

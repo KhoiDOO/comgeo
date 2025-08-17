@@ -21,11 +21,7 @@ pip install -U pip wheel
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu129
 
 # install dev dependencies
-pip install \
-    "pytest" \
-    "plotly==6.1.1" \
-    "dash==3.0.4" \
-    "jupyter"
+pip install pytest 
 
 # install
 pip install -e .

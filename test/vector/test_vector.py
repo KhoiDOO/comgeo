@@ -81,6 +81,12 @@ class TestVector(unittest.TestCase):
         with self.assertRaises(NotImplementedError) as context:
             self.vec1 - self.vec2
         self.assertIn("__sub__ is not implemented for Vector", str(context.exception))
+    
+    def test_vector_norm_not_implemented(self):
+        """Test that norm raises NotImplementedError."""
+        with self.assertRaises(NotImplementedError) as context:
+            self.vec1.norm()
+        self.assertIn("norm is not implemented for Vector", str(context.exception))
 
 if __name__ == '__main__':
     unittest.main()

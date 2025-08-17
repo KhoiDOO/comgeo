@@ -117,6 +117,38 @@ class TestVertex2D(unittest.TestCase):
         with self.assertRaises(TypeError) as context:
             self.vertex1 - "not a vertex2d"
         self.assertIn("__sub__ is only supported for Vertex2D instances", str(context.exception))
+    
+    def test_vertex2d_multiplication(self):
+        """Test multiplication of a Vertex2D instance by a scalar."""
+        result = self.vertex1 * 2.0
+        self.assertIsInstance(result, Vertex2D)
+        self.assertEqual(result.x, 2.0)  # 1.0 * 2
+        self.assertEqual(result.y, 4.0)  # 2.0 * 2
+    
+    def test_vertex2d_multiplication_with_non_float(self):
+        """Test multiplication with non-float raises TypeError."""
+        with self.assertRaises(TypeError) as context:
+            self.vertex1 * "not a float"
+        self.assertIn("__mul__ is only supported for float instances", str(context.exception))
+
+    def test_vertex2d_division(self):
+        """Test division of a Vertex2D instance by a scalar."""
+        result = self.vertex1 / 2.0
+        self.assertIsInstance(result, Vertex2D)
+        self.assertEqual(result.x, 0.5)  # 1.0 / 2
+        self.assertEqual(result.y, 1.0)  # 2.0 / 2
+
+    def test_vertex2d_division_by_zero(self):
+        """Test division by zero raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.vertex1 / 0.0
+        self.assertIn("Cannot divide by zero", str(context.exception))
+    
+    def test_vertex2d_division_by_non_float(self):
+        """Test division by non-float raises TypeError."""
+        with self.assertRaises(TypeError) as context:
+            self.vertex1 / "not a float"
+        self.assertIn("__truediv__ is only supported for float instances", str(context.exception))
 
     def test_vertex2d_distance_to(self):
         """Test distance calculation between two Vertex2D instances."""

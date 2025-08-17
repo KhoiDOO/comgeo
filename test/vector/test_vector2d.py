@@ -1,4 +1,4 @@
-import pytest
+import unittest
 import math
 from comgeo.core.vector import Vector2D
 from comgeo.core.vertex import Vertex2D
@@ -8,7 +8,7 @@ import os
 # Add the parent directory to the path to import the module
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
-class TestVector2D:
+class TestVector2D(unittest.TestCase):
     """Test cases for the Vector2D class."""
     
     def test_vector2d_init(self):
@@ -50,10 +50,10 @@ class TestVector2D:
         """Test from_vertices raises error with wrong types."""
         v1 = Vertex2D(x=1.0, y=2.0)
         
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             Vector2D.from_vertices(v1, "not_vertex", id=1)
         
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             Vector2D.from_vertices("not_vertex", v1, id=1)
     
     def test_vector2d_from_vertex(self):
@@ -66,7 +66,7 @@ class TestVector2D:
     
     def test_vector2d_from_vertex_error(self):
         """Test from_vertex raises error with wrong type."""
-        with pytest.raises(AttributeError):
+        with self.assertRaises(AttributeError):
             Vector2D.from_vertex("not_vertex")
     
     def test_vector2d_repr(self):
@@ -87,7 +87,7 @@ class TestVector2D:
     def test_vector2d_equality_error(self):
         """Test equality raises error with wrong type."""
         vec = Vector2D(x=1.0, y=2.0)
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             vec == "string"
     
     def test_vector2d_less_than(self):
@@ -103,7 +103,7 @@ class TestVector2D:
     def test_vector2d_less_than_error(self):
         """Test less than raises error with wrong type."""
         vec = Vector2D(x=1.0, y=2.0)
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             vec < "string"
     
     def test_vector2d_addition(self):
@@ -118,7 +118,7 @@ class TestVector2D:
     def test_vector2d_addition_error(self):
         """Test addition raises error with wrong type."""
         vec = Vector2D(x=1.0, y=2.0)
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             vec + "string"
     
     def test_vector2d_subtraction(self):
@@ -133,8 +133,43 @@ class TestVector2D:
     def test_vector2d_subtraction_error(self):
         """Test subtraction raises error with wrong type."""
         vec = Vector2D(x=1.0, y=2.0)
-        with pytest.raises(TypeError):
+        with self.assertRaises(TypeError):
             vec - "string"
+    
+    def test_vector2d_multiplication(self):
+        """Test vector multiplication."""
+        vec = Vector2D(x=2.0, y=3.0)
+        result = vec * 2.0
+        
+        assert result._x == 4.0
+        assert result._y == 6.0
+    
+    def test_vector2d_multiplication_error(self):
+        """Test multiplication raises error with wrong type."""
+        vec = Vector2D(x=1.0, y=2.0)
+        with self.assertRaises(TypeError):
+            vec * "string"
+    
+    def test_vector2d_division(self):
+        """Test vector division."""
+        vec = Vector2D(x=4.0, y=6.0)
+        result = vec / 2.0
+        
+        assert result._x == 2.0
+        assert result._y == 3.0
+    
+    def test_vector2d_division_error(self):
+        """Test division raises error with wrong type."""
+        vec = Vector2D(x=1.0, y=2.0)
+        with self.assertRaises(TypeError):
+            vec / "string"
+    
+    def test_vector2d_division_zero(self):
+        """Test division by zero."""
+        vec = Vector2D(x=1.0, y=2.0)
+        with self.assertRaises(ValueError) as context:
+            vec / 0.0
+        self.assertIn("Cannot divide by zero", str(context.exception))
     
     def test_vector2d_norm_default(self):
         """Test norm calculation with default p=2."""
@@ -164,18 +199,17 @@ class TestVector2D:
     def test_vector2d_norm_error(self):
         """Test norm raises error with invalid p value."""
         vec = Vector2D(x=1.0, y=1.0)
-        with pytest.raises(ValueError) as exc_info:
+        with self.assertRaises(ValueError) as exc_info:
             vec.norm(p=0)
-        assert str(exc_info.value) == "p must be a positive number"
+        self.assertIn("p must be a positive number", str(exc_info.exception))
         
-        with pytest.raises(ValueError) as exc_info:
+        with self.assertRaises(ValueError) as exc_info:
             vec.norm(p=-1)
-        assert str(exc_info.value) == "p must be a positive number"
+        self.assertIn("p must be a positive number", str(exc_info.exception))
 
     def test_vector2d_norm_type_error(self):
         """Test norm raises error with non-integer p value."""
         vec = Vector2D(x=1.0, y=1.0)     
-        with pytest.raises(TypeError) as exc_info:
+        with self.assertRaises(TypeError) as exc_info:
             vec.norm(p="not_int")
-        assert str(exc_info.value) == "'<=' not supported between instances of 'str' and 'int'"
-        
+        self.assertIn("'<=' not supported between instances of 'str' and 'int'", str(exc_info.exception))
