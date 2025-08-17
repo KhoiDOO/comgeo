@@ -1,0 +1,1 @@
+python -m pytest test/graph/test_graph.py
