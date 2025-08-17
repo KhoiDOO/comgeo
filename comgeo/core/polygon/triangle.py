@@ -30,7 +30,6 @@ class Triangle(Polygon):
     @not_self_implemented
     def is_convex(self) -> bool:
         pass
-    
 
     def point_cloud_sampling(self, num_points: int) -> list[Vertex | Vertex2D | Vertex3D]:
         if type(self._vertices[0]) not in [Vertex2D, Vertex3D]:
