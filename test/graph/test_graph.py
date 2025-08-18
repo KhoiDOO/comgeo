@@ -20,6 +20,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(self.graph.adjacency_matrix.shape, (5, 5))
         self.assertTrue(np.all(self.graph.adjacency_matrix == 0))
         self.assertEqual(self.graph.adjacency_list, {})
+        self.assertFalse(self.graph.has_adjacency_matrix)
+        self.assertFalse(self.graph.has_adjacency_list)
 
     def test_id_property(self):
         """Test the id property."""
@@ -69,6 +71,8 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(self.graph.adjacency_matrix[5, 0], 1)
         self.assertEqual(self.graph.adjacency_matrix[5, 2], 1)
         self.assertEqual(self.graph.adjacency_matrix[5, 1], 0)
+        self.assertTrue(self.graph.has_adjacency_matrix)
+        self.assertTrue(self.graph.has_adjacency_list)
 
     def test_initialization_errors(self):
         """Test initialization with incorrect types."""
@@ -80,6 +84,13 @@ class TestGraph(unittest.TestCase):
             Graph(vertices=self.vertices, id="not an int")
         with self.assertRaises(TypeError):
             Graph(vertices=self.vertices, visited="not a bool")
+
+    def test_add_vertex_errors(self):
+        """Test adding a vertex with incorrect types."""
+        with self.assertRaises(TypeError):
+            self.graph.add_vertex("not a vertex")
+        with self.assertRaises(TypeError):
+            self.graph.add_vertex(Vertex2D(x=1.0, y=1.0, id=1), connections="not a list")
 
 if __name__ == '__main__':
     unittest.main()

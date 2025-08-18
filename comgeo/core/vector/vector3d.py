@@ -57,7 +57,7 @@ class Vector3D(Vector):
         self._z = value
 
     @staticmethod
-    def from_vertices(v1: Vertex3D, v2: Vertex3D, id: int, visited: bool = False) -> 'Vector3D':
+    def from_vertices(v1: Vertex3D, v2: Vertex3D, id: int = -1, visited: bool = False) -> 'Vector3D':
         """Create a Vector3D from two Vertex3D instances."""
         if not isinstance(v1, Vertex3D) or not isinstance(v2, Vertex3D):
             raise TypeError("Both arguments must be Vertex3D instances.")
@@ -92,10 +92,13 @@ class Vector3D(Vector):
         """Subtract two vectors."""
         return Vector3D(self._x - other._x, self._y - other._y, self._z - other._z)
     
-    @not_instance(float)
-    def __mul__(self, scalar: float): 
-        """Multiply a Vector3D instance by a scalar."""
-        return Vector3D(self._x * scalar, self._y * scalar, self._z * scalar)
+    def __mul__(self, other): 
+        """Multiply a Vector3D instance by a scalar or another Vector3D."""
+        if not isinstance(other, (float, Vector3D)):
+            raise TypeError("__mul__ is only supported for float instances or Vector3D instances")
+        if isinstance(other, Vector3D):
+            return self._x * other._x + self._y * other._y + self._z * other._z
+        return Vector3D(self._x * other, self._y * other, self._z * other)
     
     @not_instance(float)
     def __truediv__(self, scalar: float): 
@@ -103,7 +106,12 @@ class Vector3D(Vector):
         if scalar == 0.0:
             raise ValueError("Cannot divide by zero")
         return Vector3D(self._x / scalar, self._y / scalar, self._z / scalar)
-
+    
+    @not_self_instance
+    def cross(self, other: 'Vector3D') -> 'Vector3D':
+        """Compute the cross product of two vectors."""
+        return Vector3D(self._y * other._z - self._z * other._y, self._z * other._x - self._x * other._z, self._x * other._y - self._y * other._x)
+    
     @not_instance(int)
     def norm(self, p: int = 2) -> float:
         """Compute the norm of the vector."""

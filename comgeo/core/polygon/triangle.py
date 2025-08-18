@@ -1,6 +1,7 @@
-from ..vertex import Vertex, Vertex2D, Vertex3D
 from .base import Polygon
+from ..vertex import Vertex, Vertex2D, Vertex3D
 from ...decorator.error import not_instance, not_self_implemented
+from ...functional.polygon.area import get_area
 
 from random import random
 import math
@@ -9,6 +10,8 @@ class Triangle(Polygon):
     def __init__(self, vertices: list[Vertex | Vertex2D | Vertex3D], id: int = -1, visited: bool = False):
         self.check_vertices_len(vertices)
         super().__init__(vertices, id, visited)
+
+        self._area = get_area(vertices)
     
     @staticmethod
     def check_vertices_len(vertices: list[Vertex | Vertex2D | Vertex3D]):

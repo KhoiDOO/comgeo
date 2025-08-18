@@ -20,6 +20,7 @@ class Graph:
         self._vertices = vertices
         self._id = id
         self._visited = visited
+
         self._adjacency_list: dict[int, list[int]] = {}
         self._adjacency_matrix: np.ndarray = np.zeros((len(vertices), len(vertices)))
     
@@ -40,6 +41,14 @@ class Graph:
     @not_instance(bool)
     def visited(self, visited: bool):
         self._visited = visited
+    
+    @property
+    def has_adjacency_list(self):
+        return len(self._adjacency_list) > 0
+    
+    @property
+    def has_adjacency_matrix(self):
+        return np.sum(self._adjacency_matrix) > 0
     
     @property
     def vertices(self):

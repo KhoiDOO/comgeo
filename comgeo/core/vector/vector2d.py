@@ -43,7 +43,7 @@ class Vector2D(Vector):
         self._y = value
 
     @staticmethod
-    def from_vertices(v1: Vertex2D, v2: Vertex2D, id: int, visited: bool = False) -> 'Vector2D':
+    def from_vertices(v1: Vertex2D, v2: Vertex2D, id: int = -1, visited: bool = False) -> 'Vector2D':
         """Create a Vector2D from two Vertex2D instances."""
         if not isinstance(v1, Vertex2D) or not isinstance(v2, Vertex2D):
             raise TypeError("Both arguments must be Vertex2D instances.")
@@ -77,22 +77,30 @@ class Vector2D(Vector):
     def __sub__(self, other: 'Vector2D') -> 'Vector2D':
         """Subtract two vectors."""
         return Vector2D(self._x - other._x, self._y - other._y)
-
+    
+    def __mul__(self, other) -> 'Vector2D': 
+        """Multiply a Vector2D instance by a scalar or another Vector2D."""
+        if not isinstance(other, (float, Vector2D)):
+            raise TypeError("Other must be a float or Vector2D instance")
+        if isinstance(other, Vector2D):
+            return (self._x * other._x + self._y * other._y)
+        return Vector2D(self._x * other, self._y * other)
+    
+    @not_instance(float)
+    def __truediv__(self, other: float) -> 'Vector2D': 
+        """Divide a Vector2D instance by a scalar."""
+        if other == 0.0:
+            raise ValueError("Cannot divide by zero")
+        return Vector2D(self._x / other, self._y / other)
+    
+    @not_self_instance
+    def cross(self, other: 'Vector2D') -> float:
+        """Compute the cross product of two vectors."""
+        return self._x * other._y - self._y * other._x
+    
     @not_instance(int)
     def norm(self, p: int = 2) -> float:
         """Compute the norm of the vector."""
         if p <= 0:
             raise ValueError("p must be a positive number")
-        return (math.pow(math.fabs(self._x), p) + math.pow(math.fabs(self._y), p)) ** (1/p)
-    
-    @not_instance(float)
-    def __mul__(self, scalar: float): 
-        """Multiply a Vector2D instance by a scalar."""
-        return Vector2D(self._x * scalar, self._y * scalar)
-    
-    @not_instance(float)
-    def __truediv__(self, scalar: float): 
-        """Divide a Vector2D instance by a scalar."""
-        if scalar == 0.0:
-            raise ValueError("Cannot divide by zero")
-        return Vector2D(self._x / scalar, self._y / scalar)
+        return (math.pow(abs(self._x), p) + math.pow(abs(self._y), p)) ** (1/p)

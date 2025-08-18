@@ -1,5 +1,6 @@
 from ..vertex import Vertex, Vertex2D, Vertex3D
 from ...functional.vertex.triplets.check import is_ccw
+from ...functional.polygon.center import get_center
 
 from ...decorator.error import not_instance, not_self_implemented
 from ..utils.error import check_type, check_consistency
@@ -14,6 +15,8 @@ class Polygon:
         self._vertices = vertices
         self._id = id
         self._visited = visited
+        self._center: Vertex2D | Vertex3D = get_center(vertices)
+        self._area: float | None = None
     
     @property
     def id(self):
@@ -43,9 +46,21 @@ class Polygon:
         check_consistency(vertices, "vertices")
         self._vertices = vertices
     
-    def __eq__(self, other):
-        if not isinstance(other, Polygon):
-            return NotImplemented
+    @property
+    def center(self):
+        return self._center
+    
+    @center.setter
+    @not_instance(Vertex2D | Vertex3D)
+    def center(self, center: Vertex2D | Vertex3D):
+        self._center = center
+    
+    @property
+    def area(self):
+        return self._area
+    
+    @not_self_instance
+    def __eq__(self, other: 'Polygon') -> bool:
         return self.id == other.id and self.visited == other.visited and self.vertices == other.vertices
 
     def __repr__(self):
@@ -55,7 +70,7 @@ class Polygon:
         return f"Polygon(id={self._id}, visited={self._visited}, \nvertices={self._vertices})"
     
     def is_convex(self) -> bool:
-        if type(self._vertices[0]) in [Vertex, Vertex3D]:
+        if type(self._vertices[0]) in [Vertex, Vertex2D]:
             raise NotImplementedError("is_convex not implemented for " + str(type(self._vertices[0])))
         
         for i in range(len(self._vertices)):
