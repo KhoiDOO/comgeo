@@ -1,0 +1,24 @@
+from ...vertex import Vertex, Vertex2D, Vertex3D
+from ....functional.polygon.area import get_area
+from ....decorator.error import not_instance
+from ....functional.polygon.point_cloud import point_cloud_sampling_quad
+
+from .face import Face
+
+
+class QuadFace(Face):
+    def __init__(self, vertex_ids: list[int], id: int = -1, visited: bool = False):
+        super().__init__(vertex_ids, id, visited, 4)
+    
+    @property
+    def area(self, all_vertices: list[Vertex | Vertex2D | Vertex3D]):
+        self._area = get_area([all_vertices[i] for i in self._vertex_ids])
+        return self._area
+    
+    @area.setter
+    @not_instance(float)
+    def area(self, area: float):
+        self._area = area
+    
+    def point_cloud_sampling(self, num_points: int, all_vertices: list[Vertex | Vertex2D | Vertex3D]) -> list[Vertex | Vertex2D | Vertex3D]:
+        return point_cloud_sampling_quad([all_vertices[i] for i in self._vertex_ids], num_points)
