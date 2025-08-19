@@ -26,7 +26,7 @@ class Mesh(Graph):
         self._face_adjacency_matrix: np.ndarray = np.zeros((len(faces), len(faces)))
         self._connected_components: list[list[int]] = []
         self._vertex2face: list[list[int]] = []
-        self._vertex2cluster: list[int] = []
+        self._vertex2cc: list[int] = []
     
     @not_self_implemented
     @staticmethod
@@ -51,49 +51,81 @@ class Mesh(Graph):
         self._faces = faces
     
     @property
-    def face_adjacency_matrix(self):
+    def face_adjacency_matrix(self) -> np.ndarray:
         return self._face_adjacency_matrix
     
     @property
-    def has_face_adjacency_matrix(self):
+    def has_face_adjacency_matrix(self) -> bool:
         return np.sum(self._face_adjacency_matrix) > 0
     
+    @not_self_implemented
+    def construct_face_adjacency_matrix(self) -> np.ndarray:
+        pass
+    
     @property
-    def connected_components(self):
+    def connected_components(self) -> list[list[int]]:
         return self._connected_components
     
     @property
-    def has_connected_components(self):
+    def has_connected_components(self) -> bool:
         return len(self._connected_components) > 0
     
+    @not_self_implemented
+    def construct_connected_components(self) -> list[list[int]]:
+        pass
+    
     @property
-    def vertex2face(self):
+    def vertex2face(self) -> list[list[int]]:
         return self._vertex2face
     
     @property
-    def has_vertex2face(self):
+    def has_vertex2face(self) -> bool:
         return len(self._vertex2face) > 0
     
-    @property
-    def vertex2cluster(self):
-        return self._vertex2cluster
+    @not_self_implemented
+    def construct_vertex2face(self) -> list[list[int]]:
+        pass
     
     @property
-    def has_vertex2cluster(self):
-        return len(self._vertex2cluster) > 0
+    def vertex2cc(self) -> list[int]:
+        return self._vertex2cc
     
     @property
-    def vertex_adjacency_matrix(self):
+    def has_vertex2cc(self) -> bool:
+        return len(self._vertex2cc) > 0
+    
+    @not_self_implemented
+    def construct_vertex2cc(self) -> list[int]:
+        pass
+    
+    @property
+    def vertex_adjacency_matrix(self) -> np.ndarray:
         return self._adjacency_matrix
     
     @property
-    def has_vertex_adjacency_matrix(self):
+    def has_vertex_adjacency_matrix(self) -> bool:
         return np.sum(self._adjacency_matrix) > 0
     
+    @not_self_implemented
+    def construct_vertex_adjacency_matrix(self) -> np.ndarray:
+        pass
+    
     @property
-    def vertex_adjacency_list(self):
+    def vertex_adjacency_list(self) -> list[list[int]]:
         return self._adjacency_list
     
     @property
-    def has_vertex_adjacency_list(self):
+    def has_vertex_adjacency_list(self) -> bool:
         return len(self._adjacency_list) > 0
+    
+    @not_self_implemented
+    def construct_vertex_adjacency_list(self) -> list[list[int]]:
+        pass
+
+    @not_self_implemented
+    def point_cloud_sampling(self, num_points: int) -> list[Vertex2D | Vertex3D]:
+        pass
+
+    @not_self_implemented
+    def visualize(self):
+        pass

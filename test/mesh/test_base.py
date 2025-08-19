@@ -75,6 +75,8 @@ class TestMesh(unittest.TestCase):
 			self.mesh.construct_vertex_adjacency_list()
 		with self.assertRaises(NotImplementedError):
 			self.mesh.point_cloud_sampling(10)
+		with self.assertRaises(NotImplementedError):
+			self.mesh.visualize()
 
 if __name__ == "__main__":
 	unittest.main()
