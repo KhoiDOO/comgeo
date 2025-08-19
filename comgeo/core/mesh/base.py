@@ -33,6 +33,10 @@ class Mesh(Graph):
     def from_file_path(file_path: str) -> 'Mesh':
         pass
 
+    @not_self_implemented
+    def export_to_file_path(self, file_path: str):
+        pass
+
     @staticmethod
     def check_faces_len(faces: list[list[int]]):
         if len(faces) == 0:

@@ -62,6 +62,8 @@ class TestMesh(unittest.TestCase):
 		with self.assertRaises(NotImplementedError):
 			Mesh.from_file_path('dummy.obj')
 		with self.assertRaises(NotImplementedError):
+			self.mesh.export_to_file_path('dummy.obj')
+		with self.assertRaises(NotImplementedError):
 			self.mesh.construct_face_adjacency_matrix()
 		with self.assertRaises(NotImplementedError):
 			self.mesh.construct_connected_components()
