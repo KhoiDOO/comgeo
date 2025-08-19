@@ -86,12 +86,11 @@ class TestQuad(unittest.TestCase):
             self.assertIsInstance(point, Vertex3D)
 
     def test_point_cloud_sampling_base_vertex_error(self):
-        """Test point cloud sampling raises error for base Vertex."""
+        """Test Quad construction raises error for base Vertex."""
         base_vertices = [Vertex(id=1), Vertex(id=2), Vertex(id=3), Vertex(id=4)]
-        base_quad = Quad(base_vertices)
-        with self.assertRaises(NotImplementedError) as context:
-            base_quad.point_cloud_sampling(10)
-        self.assertIn("point_cloud_sampling not implemented for", str(context.exception))
+        with self.assertRaises(ValueError) as context:
+            Quad(base_vertices)
+        self.assertIn("Polygon must have vertices of type Vertex2D or Vertex3D", str(context.exception))
 
 if __name__ == '__main__':
     unittest.main()

@@ -2,7 +2,7 @@ from ..vertex import Vertex, Vertex2D, Vertex3D
 from ...functional.vertex.triplets.check import is_ccw
 from ...functional.polygon.center import get_center
 
-from ...decorator.error import not_instance, not_self_implemented
+from ...decorator.error import not_instance, not_self_implemented, not_self_instance
 from ..utils.error import check_type, check_consistency
 
 class Polygon:
@@ -70,7 +70,7 @@ class Polygon:
         return f"Polygon(id={self._id}, visited={self._visited}, \nvertices={self._vertices})"
     
     def is_convex(self) -> bool:
-        if type(self._vertices[0]) in [Vertex, Vertex2D]:
+        if type(self._vertices[0]) in [Vertex, Vertex3D]:
             raise NotImplementedError("is_convex not implemented for " + str(type(self._vertices[0])))
         
         for i in range(len(self._vertices)):

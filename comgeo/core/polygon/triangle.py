@@ -2,9 +2,8 @@ from .base import Polygon
 from ..vertex import Vertex, Vertex2D, Vertex3D
 from ...decorator.error import not_instance, not_self_implemented
 from ...functional.polygon.area import get_area
+from ...functional.polygon.point_cloud import point_cloud_sampling_triangle
 
-from random import random
-import math
 
 class Triangle(Polygon):
     def __init__(self, vertices: list[Vertex | Vertex2D | Vertex3D], id: int = -1, visited: bool = False):
@@ -38,19 +37,5 @@ class Triangle(Polygon):
         if type(self._vertices[0]) not in [Vertex2D, Vertex3D]:
             raise NotImplementedError("point_cloud_sampling not implemented for " + str(type(self._vertices[0])))
         
-        points: list[Vertex2D | Vertex3D] = []
-        for _ in range(num_points):
-            r1 = random()
-            r2 = random()
-
-            w1 = 1 - math.sqrt(r1)
-            w2 = math.sqrt(r1) * (1 - r2)
-            w3 = math.sqrt(r1) * r2
-
-            points.append(
-                self.vertices[0] * w1 + \
-                self.vertices[1] * w2 + \
-                self.vertices[2] * w3
-            )
-        
+        points: list[Vertex2D | Vertex3D] = point_cloud_sampling_triangle(self._vertices, num_points)
         return points

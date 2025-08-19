@@ -63,8 +63,10 @@ class TestPolygon(unittest.TestCase):
         self.assertNotEqual(self.polygon1, self.polygon2)
 
     def test_polygon_equality_with_non_polygon(self):
-        """Test equality with a non-Polygon object."""
-        self.assertNotEqual(self.polygon1, "not a polygon")
+        """Test equality with a non-Polygon object raises TypeError."""
+        with self.assertRaises(TypeError) as context:
+            self.polygon1 == "not a polygon"
+        self.assertIn("__eq__ is only supported for Polygon instances.", str(context.exception))
 
     def test_repr_and_str(self):
         """Test the __repr__ and __str__ methods."""
