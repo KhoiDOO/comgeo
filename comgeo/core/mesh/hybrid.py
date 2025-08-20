@@ -26,9 +26,13 @@ class HybridMesh(Mesh):
         else:
             raise ValueError("dim must be 2 or 3")
 
+        check_type(face_type, (type(Face), type(QuadFace), type(TriangleFace)), "face_type")
         self._faces = [face_type(face) for face in faces]
     
     @staticmethod
     def from_file_path(file_path: str, dim: int = 2) -> 'HybridMesh':
         vertices, faces = load_mesh(file_path, dim)
         return HybridMesh(vertices, faces, dim=dim)
+
+    def point_cloud_sampling(self, num_points):
+        pass

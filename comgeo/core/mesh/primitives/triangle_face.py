@@ -10,14 +10,13 @@ class TriangleFace(Face):
     def __init__(self, vertex_ids: list[int], id: int = -1, visited: bool = False):
         super().__init__(vertex_ids, id, visited, 3)
     
-    @property
     def area(self, all_vertices: list[Vertex | Vertex2D | Vertex3D]):
-        self._area = get_area([all_vertices[i] for i in self._vertex_ids])
+        if self._area is None:
+            self._area = get_area([all_vertices[i] for i in self._vertex_ids])
         return self._area
     
-    @area.setter
     @not_instance(float)
-    def area(self, area: float):
+    def set_area(self, area: float):
         self._area = area
     
     @not_self_implemented

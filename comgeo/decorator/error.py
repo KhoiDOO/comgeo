@@ -6,6 +6,12 @@ def not_self_implemented(func):
         raise NotImplementedError(f"{func.__name__} is not implemented for {self.__class__.__name__}.")
     return wrapper
 
+def self_implemented(func):
+    """Decorator to check if the method is implemented."""
+    def wrapper(self, *args, **kwargs):
+        return func(self, *args, **kwargs)
+    return wrapper
+
 def not_self_instance(func):
     """Decorator to check if the argument is an instance of a specific class."""
     def wrapper(self, *args, **kwargs):

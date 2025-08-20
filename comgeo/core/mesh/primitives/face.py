@@ -62,15 +62,13 @@ class Face:
     def center(self, center: Vertex2D | Vertex3D):
         self._center = center
     
-    @property
     @not_self_implemented
     def area(self, all_vertices: list[Vertex | Vertex2D | Vertex3D]):
         pass
     
-    @area.setter
     @not_instance(float)
     @not_self_implemented
-    def area(self, area: float):
+    def set_area(self, area: float):
         pass
 
     @not_self_instance
