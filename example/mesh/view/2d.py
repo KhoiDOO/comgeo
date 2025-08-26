@@ -18,7 +18,7 @@ def plot_mesh(mesh: TriangleMesh2D, filename: str):
 
 if __name__ == "__main__":
 	base_dir = os.path.dirname(os.path.abspath(__file__))
-	mesh_path = os.path.join(base_dir, "2d.obj")
+	mesh_path = os.path.normpath(os.path.join(base_dir, '..', '..', 'sample', '2dmesh', 'o.obj'))
 	pdf_path = os.path.join(base_dir, "2d.pdf")
 	mesh = TriangleMesh2D.from_file_path(mesh_path)
 	plot_mesh(mesh, pdf_path)

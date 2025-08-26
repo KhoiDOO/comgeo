@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "comgeo"
-version = "0.1.6"
+version = "0.1.7"
 authors = [
   { name="KhoiDOO", email="khoido8899@gmail.com" }, # Replace with your actual name and email
 ]
@@ -19,7 +19,8 @@ classifiers = [
 dependencies = [
     "numpy",
     "matplotlib",
-    "seaborn"
+    "seaborn",
+    "tqdm"
 ]
 
 [project.urls]

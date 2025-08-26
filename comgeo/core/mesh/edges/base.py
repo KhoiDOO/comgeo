@@ -6,10 +6,11 @@ from ....functional.vertex.triplets.check import is_ccw
 
 
 class BaseEdge:
-    def __init__(self, start: Vertex2D, end: Vertex2D):
-        check_type(start, (Vertex2D, Vector3D), "start")
-        check_type(end, (Vertex2D, Vector3D), "end")
-        check_consistency([start, end], "<Vector2D, Vector3D>")
+    def __init__(self, start: Vertex2D | Vertex3D, end: Vertex2D | Vertex3D):
+        
+        check_type(start, (Vertex2D, Vertex3D), "start")        
+        check_type(end, (Vertex2D, Vertex3D), "end")
+        check_consistency([start, end], "<Vertex2D, Vertex3D>")
         self._start = start
         self._end = end
     
