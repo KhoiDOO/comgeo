@@ -18,7 +18,7 @@ def plot_mesh_and_points(mesh: TriangleMesh2D, recon_mesh: TriangleMesh2D, pdf_p
 		ys.append(ys[0])
 		ax1.plot(xs, ys, color='blue', linewidth=1)
 	# Removed point cloud plotting
-	ax1.set_title('Original Mesh & Point Cloud')
+	ax1.set_title(f'Original Mesh - #Faces: {len(mesh.faces)}')
 	ax1.set_aspect('equal')
 
 	# Plot reconstructed mesh on the right
@@ -30,7 +30,7 @@ def plot_mesh_and_points(mesh: TriangleMesh2D, recon_mesh: TriangleMesh2D, pdf_p
 		xs.append(xs[0])
 		ys.append(ys[0])
 		ax2.plot(xs, ys, color='green', linewidth=1)
-	ax2.set_title('Reconstructed Mesh from Point Cloud')
+	ax2.set_title(f'Reconstructed Mesh - #Faces: {len(recon_mesh.faces)}')
 	ax2.set_aspect('equal')
 
 	plt.tight_layout()
