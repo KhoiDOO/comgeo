@@ -13,6 +13,7 @@ class TestPolygon(unittest.TestCase):
         self.polygon1 = Polygon(self.vertices1, id=1, visited=False)
         self.polygon2 = Polygon(self.vertices2, id=2, visited=True)
         self.polygon3 = Polygon(self.vertices1, id=1, visited=False) # Same as polygon1
+        self.polygon4 = Polygon(self.vertices1[::-1], id=1, visited=False) # Different order
 
     def test_polygon_initialization_default(self):
         """Test Polygon initialization with default parameters."""
@@ -77,6 +78,7 @@ class TestPolygon(unittest.TestCase):
     def test_is_convex(self):
         """Test the is_convex method for a convex polygon."""
         self.assertTrue(self.polygon1.is_convex())
+        self.assertTrue(self.polygon4.is_convex())
 
     def test_is_not_convex(self):
         """Test the is_convex method for a non-convex polygon."""

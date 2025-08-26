@@ -9,6 +9,12 @@ class TestFace(unittest.TestCase):
 		self.vertices2d = [Vertex2D(0.0, 0.0), Vertex2D(1.0, 0.0), Vertex2D(0.0, 1.0)]
 		self.vertices3d = [Vertex3D(0.0, 0.0, 0.0), Vertex3D(1.0, 0.0, 0.0), Vertex3D(0.0, 1.0, 0.0)]
 
+		self.face_convex_1 = Face([0, 1, 2, 3, 4, 5], id=6, visited=True, max_num_vertices=6)
+		self.vertices2d_convex = [Vertex2D(0.0, -2.0), Vertex2D(1.0, 0.0), Vertex2D(0.0, 1.0), Vertex2D(-0.5, 0.5), Vertex2D(-0.6, 0.0), Vertex2D(-0.5, -1.0)]
+		self.face_convex_2 = Face([5, 4, 3, 2, 1, 0], id=7, visited=True, max_num_vertices=6)
+		self.vertices2d_non_convex = [Vertex2D(0.0, -1.0), Vertex2D(1.0, 0.0), Vertex2D(0.0, 1.0), Vertex2D(-0.5, 0.5), Vertex2D(-0.5, 0.0), Vertex2D(1.0, 1.0)]
+		self.face_non_convex = Face([0, 1, 2, 3, 4, 5], id=8, visited=True, max_num_vertices=6)
+
 	def test_init_and_properties(self):
 		self.assertEqual(self.face.id, 5)
 		self.assertTrue(self.face.visited)
@@ -69,10 +75,15 @@ class TestFace(unittest.TestCase):
 		with self.assertRaises(NotImplementedError):
 			self.face.set_area(1.0)
 
+	def test_is_convex(self):
+		self.assertTrue(self.face_convex_1.is_convex(self.vertices2d_convex))
+		self.assertTrue(self.face_convex_2.is_convex(self.vertices2d_convex))
+		self.assertFalse(self.face_non_convex.is_convex(self.vertices2d_non_convex))
+
 	def test_is_convex_not_implemented(self):
 		# Should raise NotImplementedError for Vertex2D
 		with self.assertRaises(NotImplementedError):
-			self.face.is_convex(self.vertices2d)
+			self.face.is_convex(self.vertices3d)
 
 	def test_is_convex_3d(self):
 		# Should raise NotImplementedError due to is_ccw_3d not implemented

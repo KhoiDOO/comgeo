@@ -5,6 +5,8 @@ from ...functional.polygon.center import get_center
 from ...decorator.error import not_instance, not_self_implemented, not_self_instance
 from ..utils.error import check_type, check_consistency
 
+import numpy as np
+
 class Polygon:
     def __init__(self, vertices: list[Vertex | Vertex2D | Vertex3D], id: int = -1, visited: bool = False):
         check_type(vertices, list, "vertices")
@@ -72,12 +74,14 @@ class Polygon:
     def is_convex(self) -> bool:
         if type(self._vertices[0]) in [Vertex, Vertex3D]:
             raise NotImplementedError("is_convex not implemented for " + str(type(self._vertices[0])))
-        
-        for i in range(len(self._vertices)):
-            if not is_ccw(self._vertices[i], self._vertices[(i + 1) % len(self._vertices)], self._vertices[(i + 2) % len(self._vertices)]):
-                return False
-        return True
-    
+
+        ccws = np.array([
+            is_ccw(self._vertices[i], self._vertices[(i + 1) % len(self._vertices)], self._vertices[(i + 2) % len(self._vertices)])
+            for i in range(len(self._vertices))
+        ])
+
+        return np.all(ccws) or not np.any(ccws)
+
     @not_self_implemented
     def point_cloud_sampling(self, num_points: int) -> list[Vertex | Vertex2D | Vertex3D]:
         pass
