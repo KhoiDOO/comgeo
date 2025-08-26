@@ -11,3 +11,6 @@ bash test_script/polygon/test_functional.sh
 
 # Mesh
 bash test_script/mesh/test_core.sh
+
+# Shape
+bash test_script/shape/test_core.sh

@@ -67,7 +67,7 @@ class TestFace(unittest.TestCase):
 
 	def test_area_setter_not_implemented(self):
 		with self.assertRaises(NotImplementedError):
-			self.face.area = 1.0
+			self.face.set_area(1.0)
 
 	def test_is_convex_not_implemented(self):
 		# Should raise NotImplementedError for Vertex2D
