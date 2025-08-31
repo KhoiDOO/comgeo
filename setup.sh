@@ -23,6 +23,9 @@ pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu12
 # install dev dependencies
 pip install pytest scipy
 
+# install datasets dependencies
+pip install datasets==4.0.0
+
 # install
 pip install -e .
 
