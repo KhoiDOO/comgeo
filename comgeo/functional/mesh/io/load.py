@@ -25,12 +25,20 @@ def load_mesh(file_path: str, dim: int = 2) -> tuple[list[Vertex2D | Vertex3D], 
                 vertex_id += 1
 
         elif dim == 3:
-            for v, vn in zip(_vertices, _vertices_normal):
+            # for v, vn in zip(_vertices, _vertices_normal):
+            #     if len(v) != 3:
+            #         raise Warning(f"Identified vertex with {len(v)} coordinates, skip it")
+            #         continue
+            #     vertex = Vertex3D(v[0], v[1], v[2], vertex_id)
+            #     vertex.normal = vn
+            #     vertices.append(vertex)
+            #     vertex_id += 1
+
+            for v in zip(_vertices):
                 if len(v) != 3:
                     raise Warning(f"Identified vertex with {len(v)} coordinates, skip it")
                     continue
                 vertex = Vertex3D(v[0], v[1], v[2], vertex_id)
-                vertex.normal = vn
                 vertices.append(vertex)
                 vertex_id += 1
         
