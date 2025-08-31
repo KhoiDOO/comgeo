@@ -1,4 +1,4 @@
-def read_obj(file_path: str) -> tuple[list[list[float]], list[list[float]], list[list[int]]]:
+def read_obj(file_path: str, verbose: bool = False) -> tuple[list[list[float]], list[list[float]], list[list[int]]]:
     vertices = []
     vertices_normal = []
     faces = []
@@ -14,7 +14,8 @@ def read_obj(file_path: str) -> tuple[list[list[float]], list[list[float]], list
                 continue
 
             split = strip.split()
-            
+            if verbose and split[0] == "v":
+                print(f"Vertex found: {split[1:]}")
             if split[0] == "v":
                 vertices.append([float(coord) for coord in split[1:]])
             # elif split[0] == "vn":

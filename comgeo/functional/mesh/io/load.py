@@ -3,14 +3,14 @@ from .obj import read_obj
 
 import os
 
-def load_mesh(file_path: str, dim: int = 2) -> tuple[list[Vertex2D | Vertex3D], list[list[int]]]:
-    
+def load_mesh(file_path: str, dim: int = 2, verbose: bool = False) -> tuple[list[Vertex2D | Vertex3D], list[list[int]]]:
+
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File not found: {file_path}")
 
     extension = file_path.split('.')[-1]
     if extension == 'obj':
-        _vertices, _vertices_normal, faces = read_obj(file_path)
+        _vertices, _vertices_normal, faces = read_obj(file_path, verbose)
         vertices = []
 
         vertex_id = 0
