@@ -17,7 +17,7 @@ def read_obj(file_path: str, verbose: bool = False) -> tuple[list[list[float]], 
             if split[0] == "v":
                 vertex = [float(coord) for coord in split[1:]]
                 if verbose:
-                    print(f"Vertex found: {vertex}")
+                    print(f"Vertex found: {strip} -> {vertex}")
                 vertices.append(vertex)
             # elif split[0] == "vn":
             #     vertices_normal.append([float(coord) for coord in split[1:]])
