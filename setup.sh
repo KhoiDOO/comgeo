@@ -21,7 +21,8 @@ pip install -U pip wheel
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu129
 
 # install dev dependencies
-pip install pytest scipy
+pip install pytest scipy 
+pip install open3d
 
 # install datasets dependencies
 pip install datasets==4.0.0
