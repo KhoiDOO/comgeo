@@ -14,10 +14,10 @@ def read_obj(file_path: str, verbose: bool = False) -> tuple[list[list[float]], 
                 continue
 
             split = strip.split()
-            vertex = [float(coord) for coord in split[1:]]
-            if verbose and split[0] == "v":
-                print(f"Vertex found: {vertex}")
             if split[0] == "v":
+                vertex = [float(coord) for coord in split[1:]]
+                if verbose:
+                    print(f"Vertex found: {vertex}")
                 vertices.append(vertex)
             # elif split[0] == "vn":
             #     vertices_normal.append([float(coord) for coord in split[1:]])
