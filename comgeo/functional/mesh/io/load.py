@@ -34,7 +34,7 @@ def load_mesh(file_path: str, dim: int = 2, verbose: bool = False) -> tuple[list
             #     vertices.append(vertex)
             #     vertex_id += 1
 
-            for v in zip(_vertices):
+            for v in _vertices:
                 if len(v) != 3:
                     raise Warning(f"Identified vertex with {len(v)} coordinates: {v}, skip it")
                     continue
