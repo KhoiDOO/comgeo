@@ -207,4 +207,7 @@ marimo/_lsp/
 __marimo__/
 
 # Data
-data/*/src
+data/ellipsoid/ellipsoid_simple/
+data/ellipsoid/*.blend
+data/ellipsoid/*.blend1
+data/ellipsoid/*.txt
