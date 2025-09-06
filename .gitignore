@@ -208,6 +208,7 @@ __marimo__/
 
 # Data
 data/ellipsoid/ellipsoid_simple/
+data/ellipsoid/ellipsoid_1024pts/
 data/ellipsoid/*.blend
 data/ellipsoid/*.blend1
 data/ellipsoid/*.txt
