@@ -31,13 +31,13 @@ def mesh_from_tetras(vertices: np.ndarray, tetrahedrons: np.ndarray) -> o3d.geom
     return mesh
 
 def main():
-    originals_folder = os.path.join(os.path.dirname(__file__), 'originals')
-    recon_delaunay_folder = os.path.join(os.path.dirname(__file__), 'recon_delaunay')
-    recon_voting_folder = os.path.join(os.path.dirname(__file__), 'recon_voting')
+    originals_folder = os.path.join(os.path.dirname(__file__), 'm500_ori')
+    recon_delaunay_folder = os.path.join(os.path.dirname(__file__), 'm500_recon_delaunay')
+    recon_voting_folder = os.path.join(os.path.dirname(__file__), 'm500_recon_voting')
     os.makedirs(recon_delaunay_folder, exist_ok=True)
     os.makedirs(recon_voting_folder, exist_ok=True)
 
-    obj_files = get_obj_files(originals_folder)
+    obj_files = get_obj_files(originals_folder)[:20]
     for obj_path in obj_files:
         
         mesh = o3d.io.read_triangle_mesh(obj_path)
